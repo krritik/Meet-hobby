@@ -7,19 +7,26 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    UserName = models.CharField(max_length=60)
     AddressRoomNo = models.CharField(max_length=60)
     AddressHall = models.CharField(max_length=60)
 
+    def __str__(self):
+        return self.user.username
+
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()
+
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def updaet_profile_signal(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
+    instance.profile.save()    
 
 class PhoneNumber(models.Model):
     UserId = models.ForeignKey('Profile',on_delete=models.CASCADE)
