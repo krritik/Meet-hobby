@@ -30,8 +30,7 @@ class Post(models.Model):
     PostId = models.AutoField(primary_key=True)
     Likes = models.PositiveSmallIntegerField(default=0)
     PostDescription = models.TextField()
-    PostTime = models.DateTimeField(blank=True, null=True)
-    PostCreationTime = models.DateTimeField(default=timezone.now)
+    PostTime = models.DateTimeField(default=timezone.now)
     UserId = models.ForeignKey('Profile',on_delete=models.CASCADE)
 
     def publish(self):
