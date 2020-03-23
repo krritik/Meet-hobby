@@ -1,0 +1,26 @@
+<a href="/profile"> Profile </a>
+<br>
+<a href="/new_post/{{gid}}"> Add Post </a>
+<br>
+<a href ="/showgroup"> Show the groups </a> 
+<br>
+{% if  1 %}
+    {% for hp in hps %}
+        <!-- <p> -->
+                <!-- {{ hp.PostId }} -->
+        <!-- </p><br> -->
+        <hr>
+        <p>
+                {{ hp.PostDescription }}
+        </p> <br>
+        <p>
+            <a href ="/post_comments/{{hp.PostId}}"> Show Comments </a>
+        </p> <br>
+        <p>
+            <a href="/new_comment/{{hp.PostId}}"> Add comment </a>
+        </p> <br>
+        <!-- <a href="/new_comment/{{pid}}"> Add comment </a> -->
+        <!-- <a href ="/showgroup"> Show the groups </a>  -->
+        <hr>
+    {% endfor %}
+{% endif %}

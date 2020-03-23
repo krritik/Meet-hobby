@@ -1,0 +1,36 @@
+<a href="/profile"> Profile </a>
+{{gid}}
+<a href="/new_comment/{{pid}}"> Add comment </a>
+
+<!-- {% if  gposts %} -->
+    <!-- {% for gp in gposts %} -->
+        <!-- <p> -->
+                <!-- {{ gp.PostId }} -->
+        <!-- </p> <br> <br> -->
+
+        <!-- {% for hp in postd %} -->
+
+
+        <!-- {% endfor %} -->
+
+    <!-- {% endfor %} -->
+<!-- {% endif %} -->
+<!-- yess1 -->
+{% if  1 %}
+<!-- yesss2 -->
+    {% for hc in hcs %}
+        <p>
+            <!-- yess3 -->
+                {{ hc.UserId.username }}
+        </p> <br> <br>
+        <p>
+                {{ hc.Content }}
+        </p> <br> <br>
+
+        <!-- {% for hp in postd %} -->
+
+
+        <!-- {% endfor %} -->
+
+    {% endfor %}
+{% endif %}
