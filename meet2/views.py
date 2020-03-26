@@ -162,6 +162,67 @@ def show_comments(request, id):
     print(HC)
     return render(request, 'post_comments.html',{'hcs':HC,'pid':id})
 
+def add_event(request,id):
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            events = form.save(commit = False)
+            events.save()
+            eid = events.EventId
+            new_hasevents_rel = HasEvents()
+            new_hasevents_rel.GroupId = Group.objects.get(GroupId = id)  #//id
+            new_hasevents_rel.EventId = Events.objects.get(EventId = eid)
+            new_hasevents_rel.save()
+            return redirect(show_group_events,id)
+        else :
+            return redirect('home')    
+
+    else:
+        form = EventForm()
+    return render(request,'new_event.html',{'new_event_form':EventForm})
 
 
-    
+def show_group_events(request,id):
+    user = request.user
+    UIE = UserInterestedEvents.objects.filter(UserId = user)
+    all_group_event = []
+    all_user_event = []
+    group = Group.objects.get(GroupId = id)
+    GE = HasEvents.objects.filter(GroupId = group)
+    for x in GE:
+        all_group_event.append(x.EventId)
+    for y in UIE:
+        all_user_event.append(y.EventId)
+    joined_event = []
+    not_joined_event = []
+    for x in all_group_event :
+        if x in all_user_event:
+            joined_event.append(x)
+        else:
+            not_joined_event.append(x)
+    return render(request,'show_group_event.html',{'joined':joined_event,'not_joined':not_joined_event,'gid':id})
+
+def join_event(request, id):
+    user = request.user
+    if request.method == "POST":
+        form = UserInterestedEventsForm(request.POST)
+        if form.is_valid():
+            jevent = form.save(commit = False)
+            jevent.UserId = user
+            jevent.EventId = Events.objects.get(EventId = id)
+            jevent.save()
+            return redirect(show_all_events)   
+    else:
+        form = UserInterestedEventsForm()
+    return render(request,'join_event.html',{'join_event_form':UserInterestedEventsForm})
+
+
+def show_all_events(request): #notification
+    user = request.user
+    UIE = UserInterestedEvents.objects.filter(UserId = user)
+    # print(UIE[0].EventId)
+    notifi = []
+    for x in UIE:
+        notifi.append(x.EventId)
+    print(notifi)
+    return render(request, 'show_all_event.html',{'notifi':notifi})

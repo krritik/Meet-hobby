@@ -1,0 +1,5 @@
+<h2>New Event</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ new_event_form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+</form>

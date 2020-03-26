@@ -1,0 +1,22 @@
+<a href="/profile"> Profile </a>
+
+{% if  1 %}
+    hey1
+    {% for gp in notifi %}
+    hey2
+        <p>
+              <!-- <a href="/group_posts/{{gp.GroupId}}">  {{ gp.GroupName }} </a> -->
+              <br>
+                {{ gp.EventDescription }}
+              <br>
+               {{ gp.EventName}}
+        </p>
+        <br>
+        <hr>
+        <!-- <p>
+            {{ gp.GroupId }}
+    </p> -->
+        
+
+    {% endfor %}
+{% endif %}

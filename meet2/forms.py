@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post,Comments
+from .models import Post,Comments,Events,UserInterestedEvents
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(max_length=60, help_text='Username')
@@ -27,4 +27,14 @@ class CommentForm(forms.ModelForm):
         model = Comments
         fields = ('Content',)        
 
+class EventForm(forms.ModelForm):
+
+    class Meta:
+        model = Events
+        fields = ('EventPlace','EventDescription','EventName',)
         
+class UserInterestedEventsForm(forms.ModelForm):
+
+    class Meta:
+        model = UserInterestedEvents
+        fields = ('EntryTime','ExitTime',)

@@ -14,5 +14,10 @@ urlpatterns = [
     path('group_posts/<int:id>',views.show_posts, name='show_posts'),
     path('new_post/<int:id>',views.new_post,name='post_new'),
     path('post_comments/<int:id>',views.show_comments, name='show_comments'),
-    path('new_comment/<int:id>',views.new_comment,name='comment_new')
+    path('new_comment/<int:id>',views.new_comment,name='comment_new'),
+    path('notification/',views.show_all_events,name='all_interested_events'),
+    path('new_event/<int:id>',views.add_event,name='event_new'),
+    path('show_group_event/<int:id>',views.show_group_events,name='show_group_events'),
+    path('join_event/<int:id>',views.join_event,name='join_event'),
+
 ]
