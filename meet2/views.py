@@ -3,6 +3,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+
 
 from . forms import *
 from . models import *
@@ -59,6 +63,7 @@ def logout_request(request):
     messages.info(request, "Logged out successfully")
     return redirect('home')
 
+@login_required
 def index(request):
     user = request.user
     if user.username and user.is_superuser is False:
@@ -67,6 +72,7 @@ def index(request):
         messages.warning(request, 'You are not logged in. Please login') 
         return redirect('home')  
 
+@login_required
 def show_joined_group(request):
     user = request.user                                     
     GM = GroupMembers.objects.filter(UserId=user)
@@ -76,6 +82,7 @@ def show_joined_group(request):
         user_groups.append(x.GroupId)
     return render(request, 'show_group.html', {'user_groups':user_groups})
 
+@login_required
 def show_new_group(request):
     user = request.user
 
@@ -96,6 +103,7 @@ def show_new_group(request):
 
     return render(request, 'new_group.html', {'new_groups':new_groups})
 
+@login_required
 def join_group(request, id):
     user = request.user   
     if user.username:
@@ -112,6 +120,7 @@ def join_group(request, id):
         messages.warning(request, 'You are not logged in. Please login')
         return redirect('home')    
 
+@login_required
 def new_post(request, id):
     if request.method =="POST":
         form = PostForm(request.POST)
@@ -130,7 +139,7 @@ def new_post(request, id):
         form = PostForm()
     return render(request,'new_post.html',{'new_post_form':PostForm})
 
-
+@login_required
 def show_posts(request, id):
     HP = HasPosts.objects.filter(GroupId = id)
     all_posts = Post.objects.all()
@@ -144,6 +153,7 @@ def show_posts(request, id):
     print(all_posts)
     return render(request, 'group_posts.html',{'hps':has_post,'gid':id})
 
+@login_required
 def new_comment(request,id):
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -157,11 +167,13 @@ def new_comment(request,id):
         form = CommentForm()
     return render(request,'new_comment.html',{'new_comment_form':CommentForm})
 
+@login_required
 def show_comments(request, id):
     HC = Comments.objects.filter(PostId = id)
     print(HC)
     return render(request, 'post_comments.html',{'hcs':HC,'pid':id})
 
+@login_required
 def add_event(request,id):
     if request.method == "POST":
         form = EventForm(request.POST)
@@ -181,7 +193,7 @@ def add_event(request,id):
         form = EventForm()
     return render(request,'new_event.html',{'new_event_form':EventForm})
 
-
+@login_required
 def show_group_events(request,id):
     user = request.user
     UIE = UserInterestedEvents.objects.filter(UserId = user)
@@ -202,6 +214,7 @@ def show_group_events(request,id):
             not_joined_event.append(x)
     return render(request,'show_group_event.html',{'joined':joined_event,'not_joined':not_joined_event,'gid':id})
 
+@login_required
 def join_event(request, id):
     user = request.user
     if request.method == "POST":
@@ -216,9 +229,10 @@ def join_event(request, id):
         form = UserInterestedEventsForm()
     return render(request,'join_event.html',{'join_event_form':UserInterestedEventsForm})
 
-
+@login_required
 def show_all_events(request): #notification
     user = request.user
+
     UIE = UserInterestedEvents.objects.filter(UserId = user)
     # print(UIE[0].EventId)
     notifi = []
@@ -226,3 +240,13 @@ def show_all_events(request): #notification
         notifi.append(x.EventId)
     print(notifi)
     return render(request, 'show_all_event.html',{'notifi':notifi})
+
+# def handler404(request, exception, template_name="404.html"):
+#     response = render_to_response(template_name)
+#     response.status_code = 404
+#     return response
+
+# def handler500(request, exception, template_name="500.html"):
+#     response = render_to_response(template_name)
+#     response.status_code = 500
+#     return response
