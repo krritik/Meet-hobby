@@ -1,0 +1,28 @@
+<a href="/profile"> Profile </a>
+<br>
+<a href="/new_event/{{gid}}"> Add event </a>
+
+Joined Events
+{% if  1 %}
+    {% for hp in joined %}
+        <hr>
+        <p>
+                {{ hp.EventName }}
+        </p> <br>
+        <hr>
+    {% endfor %}
+{% endif %}
+<hr><hr><hr>
+Not Joined Events
+{% if  1 %}
+    {% for hp in not_joined %}
+        <hr>
+        <p>
+                {{ hp.EventName }}
+        </p> <br>
+        <p>
+            <a href="/join_event/{{hp.EventId}}"> Join this event</a>
+        </p>
+        <hr>
+    {% endfor %}
+{% endif %}
