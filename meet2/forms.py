@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from .models import Post,Comments,Events,UserInterestedEvents
 
 class SignUpForm(UserCreationForm):
-    username = forms.CharField(max_length=60, help_text='Username')
-    email = forms.EmailField(max_length=150, help_text='Email')
+    username = forms.CharField(max_length=60)
+    email = forms.EmailField(max_length=150)
     
     class Meta:
         model = User
@@ -31,7 +31,7 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Events
-        fields = ('EventPlace','EventDescription','EventName',)
+        fields = ('EventPlace','EventDescription','EventName','DateTime')
         
 class UserInterestedEventsForm(forms.ModelForm):
 

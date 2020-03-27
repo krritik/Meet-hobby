@@ -1,7 +1,15 @@
-<h2>Login To Page</h2>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit"> Login </button>
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/home">Home</a>
+    </div>
+  </div>
+</nav>
+<h2>User Login</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Login</button>
 </form>
+{% endblock %}
