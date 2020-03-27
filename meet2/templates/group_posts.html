@@ -1,12 +1,21 @@
-<a href="/profile"> Profile </a>
-<br>
-<a href="/new_post/{{gid}}"> Add Post </a>
-<br>
-<a href ="/showgroup"> Show the groups </a> 
-<br>
-<a href ="/notification"> Show my events </a> 
-<br>
-<a href ="/show_group_event/{{gid}}"> Show group events</a>
+{% extends 'base.html' %}
+{% block content %} 
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">{{user.username}}</a>
+      <a class="navbar-brand" href="/new_post/{{gid}}"> Add Post </a>
+      <a class="navbar-brand" href ="/showgroup"> My groups </a> 
+      <a class="navbar-brand" href ="/notification"> My events </a> 
+      <a class="navbar-brand" href ="/show_group_event/{{gid}}">Group events</a>
+    </div>
+  </div>
+</nav>
+<style>
+  p {
+    font-size: 18px;
+  }
+</style>
 {% if  1 %}
     {% for hp in hps %}
         <!-- <p> -->
@@ -14,16 +23,20 @@
         <!-- </p><br> -->
         <hr>
         <p>
-                {{ hp.PostDescription }}
+          {{ hp.PostDescription }}
         </p> <br>
-        <p>
+        <button type="button" class="btn" onclick="window.location.href ='/post_comments/{{hp.PostId}}';" >Show Comments</button>
+        <button type="button" class="btn" onclick="window.location.href ='/new_comment/{{hp.PostId}}';">Add Comments</button>
+        <!-- <p>
             <a href ="/post_comments/{{hp.PostId}}"> Show Comments </a>
         </p> <br>
+
         <p>
             <a href="/new_comment/{{hp.PostId}}"> Add comment </a>
-        </p> <br>
+        </p> <br> -->
         <!-- <a href="/new_comment/{{pid}}"> Add comment </a> -->
         <!-- <a href ="/showgroup"> Show the groups </a>  -->
         <hr>
     {% endfor %}
 {% endif %}
+{% endblock %}

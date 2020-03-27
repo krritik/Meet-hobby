@@ -1,5 +1,18 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">{{user.username}}</a>
+    </div>
+  </div>
+</nav>
+
 <h2>New Event</h2>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ new_event_form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="btn">Save</button>
 </form>
+
+{% endblock %}

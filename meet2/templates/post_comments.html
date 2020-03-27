@@ -1,36 +1,34 @@
-<a href="/profile"> Profile </a>
-{{gid}}
-<a href="/new_comment/{{pid}}"> Add comment </a>
-
-<!-- {% if  gposts %} -->
-    <!-- {% for gp in gposts %} -->
-        <!-- <p> -->
-                <!-- {{ gp.PostId }} -->
-        <!-- </p> <br> <br> -->
-
-        <!-- {% for hp in postd %} -->
-
-
-        <!-- {% endfor %} -->
-
-    <!-- {% endfor %} -->
-<!-- {% endif %} -->
-<!-- yess1 -->
+{% extends 'base.html' %}
+{% block content %} 
+<style>
+h3{
+  color: grey;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-align: right; 
+}
+p{
+    background-color: silver;
+    color: black;
+    font-size: 18px;
+}
+</style>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">{{user.username}}</a>
+      <a class="navbar-brand" href="/new_comment/{{pid}}">Add Comment</a>
+    </div>
+  </div>
+</nav>
 {% if  1 %}
-<!-- yesss2 -->
     {% for hc in hcs %}
-        <p>
-            <!-- yess3 -->
-                {{ hc.UserId.username }}
-        </p> <br> <br>
-        <p>
+        <p >
                 {{ hc.Content }}
-        </p> <br> <br>
-
-        <!-- {% for hp in postd %} -->
-
-
-        <!-- {% endfor %} -->
+        </p> 
+        <h3 >
+                {{ hc.UserId.username }}
+        </h3> 
 
     {% endfor %}
 {% endif %}
+{% endblock %}

@@ -1,29 +1,38 @@
-<a href="/profile"> Profile </a>
-
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">Home</a>
+    </div>
+  </div>
+</nav>
+<style>
+    h3{
+        color: blue;
+    }
+    p{
+        color: black;
+        font-size: 18px;
+    }   
+</style>
 {% if  new_groups %}
     {% for gp in new_groups %}
+    <p style="background-color:silver;">
+        <h3>
+             {{ gp.GroupId }} {{ gp.GroupName }}
+        </h3>
         <p>
-             {{ gp.GroupId }}
-                <br> <br>
+            {{ gp.GroupDescription }}
         </p>
-
-        <p>
-                {{ gp.GroupName }}
-        </p> <br> <br>
-
-        <p>
-                {{ gp.GroupDescription }}
-        </p>
-
-
-        <br> <br>
-
         <p>
             <form method="post" action="{% url 'join_group' gp.GroupId %}"> 
                 {% csrf_token %}
                 <br>
-                <button> Join Group </button>
+                <button class="btn" type="submit"> Join Group </button>
             </form>
         </p>
+    </p>
     {% endfor %}
 {% endif %}
+{% endblock %}

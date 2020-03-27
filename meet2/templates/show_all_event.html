@@ -1,15 +1,31 @@
-<a href="/profile"> Profile </a>
-
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">{{user.username}}</a>
+    </div>
+  </div>
+</nav>
+<style >
+  h3{
+  color: black;
+  background-color: silver; 
+}
+p{
+    background-color: silver;
+    color: black;
+    font-size: 18px;
+}
+</style>
 {% if  1 %}
-    hey1
+    Thanks for choosing us!
     {% for gp in notifi %}
-    hey2
-        <p>
-              <!-- <a href="/group_posts/{{gp.GroupId}}">  {{ gp.GroupName }} </a> -->
-              <br>
-                {{ gp.EventDescription }}
-              <br>
-               {{ gp.EventName}}
+        <h3>
+              {{ gp.EventName}}
+        </h3>
+        <p>       
+              {{ gp.EventDescription }}
         </p>
         <br>
         <hr>
@@ -20,3 +36,4 @@
 
     {% endfor %}
 {% endif %}
+{% endblock %}

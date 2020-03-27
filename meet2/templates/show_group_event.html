@@ -1,7 +1,20 @@
-<a href="/profile"> Profile </a>
-<br>
-<a href="/new_event/{{gid}}"> Add event </a>
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">{{user.username}}</a>
+      <a class="navbar-brand" href="/new_event/{{gid}}">Add event</a>
+    </div>
+  </div>
+</nav>
 
+<style>   
+    h3{
+  color: black;
+  background-color: silver; 
+}
+</style>
 Joined Events
 {% if  1 %}
     {% for hp in joined %}
@@ -17,12 +30,13 @@ Not Joined Events
 {% if  1 %}
     {% for hp in not_joined %}
         <hr>
+        <h3>
+            {{ hp.EventName }}
+        </h3> 
         <p>
-                {{ hp.EventName }}
-        </p> <br>
-        <p>
-            <a href="/join_event/{{hp.EventId}}"> Join this event</a>
+            <button type="button" class="btn" onclick="window.location.href ='/join_event/{{hp.EventId}}';">Join this event</button>
         </p>
         <hr>
     {% endfor %}
 {% endif %}
+{% endblock %}

@@ -1,26 +1,39 @@
-<h1>Visitor Home Page</h2>
+{% extends 'base.html' %}
 
-<h2> Welcome {{user.username}} </h2>
-<br>
-<div>
-    <a href ="/logout"> Log Out</a> 
-    
-    <br> <br>
-    <a href ="/showgroup"> Show the groups </a> 
-
-    <br> <br>
-    <a href ="/newgroup"> New groups </a> 
-
-    <br> <br>
-    <a href ="/notification"> notication </a> 
+{% block content %} 
+<div class="w3-panel w3-blue">
+  <h1 class="w3-text-orange" style="text-shadow:0.5px 0.5px 0 #100">
+  <b>Welcome {{user.username}}</b></h1>
 </div>
-
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/logout">Logout</a>
+      <a class="navbar-brand" href="/showgroup">My Groups</a>
+      <a class="navbar-brand" href="/newgroup">Add Group</a>
+      <a class="navbar-brand" href="/notification">Notifications</a>
+    </div>
+  </div>
+</nav>
 <div> 
-    <p>
-        UserName : {{user.username}} <br><br>
-        Email : {{user.email}} <br>
-        RoomNo : {{user.profile.AddressRoomNo}} <br>
-        Hall : {{user.profile.AddressHall}} <br>    
-    </p>
+    <div class="w3-panel w3-blue">
+      <h1 class="w3-text-orange" style="text-shadow:1px 1px 0 #444">
+      <b>About</b></h1>
+    </div>
+    <div class="w3-panel w3-blue">
+      <h3 class="w3-text-orange" >
+      <b>Email: {{user.email}}</b></h1>
+    </div>
+
+    <div class="w3-panel w3-blue">
+      <h3 class="w3-text-orange">
+      <b>Room Number: {{user.profile.AddressRoomNo}}</b></h1>
+    </div>
+
+    <div class="w3-panel w3-blue">
+      <h3 class="w3-text-orange" >
+      <b>Hall: {{user.profile.AddressHall}}</b></h1>
+    </div>
 
 </div>
+{% endblock %}
