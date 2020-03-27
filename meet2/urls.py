@@ -20,5 +20,7 @@ urlpatterns = [
     path('new_event/<int:id>',views.add_event,name='event_new'),
     path('show_group_event/<int:id>',views.show_group_events,name='show_group_events'),
     path('join_event/<int:id>',views.join_event,name='join_event'),
+    path('mod/<int:id>',views.mod_group_mem_all,name='mod_group_mem_all'),
+    path('mod_group_mem_del/<int:gid>/<int:uid>',views.mod_group_mem_del,name='mod_group_mem_del'),
 
 ]

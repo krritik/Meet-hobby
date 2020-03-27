@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from . forms import *
 from . models import *
 
+# @login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -241,12 +242,32 @@ def show_all_events(request): #notification
     print(notifi)
     return render(request, 'show_all_event.html',{'notifi':notifi})
 
-# def handler404(request, exception, template_name="404.html"):
-#     response = render_to_response(template_name)
-#     response.status_code = 404
-#     return response
+@login_required
+def mod_group_mem_all(request,id):
+    user = request.user
+    group = Group.objects.get(GroupId = id)
+    curr_user = GroupMembers.objects.get(UserId = user , GroupId = id)
+    if not curr_user.Moderator :
+        return redirect('home')
+    
+    group_user = GroupMembers.objects.filter(GroupId = group)
+    GM = []
+    for x in group_user:
+        GM.append(x.UserId)
+    return render(request,'mod_show_members.html',{'group_mem':GM,'gid':id})
 
-# def handler500(request, exception, template_name="500.html"):
-#     response = render_to_response(template_name)
-#     response.status_code = 500
-#     return response
+
+
+@login_required
+def mod_group_mem_del(request,gid,uid):
+    user = request.user
+    group = Group.objects.get(GroupId = gid)
+    del_user = User.objects.get(id = uid)
+    curr_user = GroupMembers.objects.get(UserId = user , GroupId = gid)
+    if not curr_user.Moderator :
+        return redirect('home')
+    GroupMembers.objects.get(GroupId = group , UserId = del_user).delete()
+    return redirect(mod_group_mem_all,gid)
+    
+    
+    

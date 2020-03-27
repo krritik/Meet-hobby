@@ -6,23 +6,26 @@
 <br>
 <a href ="/notification"> Show my events </a> 
 <br>
-<a href ="/mod/{{gid}}"> mod settings </a> 
-<br>
 <a href ="/show_group_event/{{gid}}"> Show group events</a>
 {% if  1 %}
-    {% for hp in hps %}
+    {% for hp in group_mem %}
         <!-- <p> -->
                 <!-- {{ hp.PostId }} -->
         <!-- </p><br> -->
         <hr>
         <p>
-                {{ hp.PostDescription }}
+                {{ hp.username }}
+        </p> <br>
+        <form method="post" action="/mod_group_mem_del/{{gid}}/{{hp.id}}"> 
+            {% csrf_token %}
+            <br>
+            <button> Remove this person </button>
+        </form>
+        <p></p>
+            <!-- <a href ="/post_comments/{{hp.PostId}}"> Show Comments </a> -->
         </p> <br>
         <p>
-            <a href ="/post_comments/{{hp.PostId}}"> Show Comments </a>
-        </p> <br>
-        <p>
-            <a href="/new_comment/{{hp.PostId}}"> Add comment </a>
+            <!-- <a href="/new_comment/{{hp.PostId}}"> Add comment </a> -->
         </p> <br>
         <!-- <a href="/new_comment/{{pid}}"> Add comment </a> -->
         <!-- <a href ="/showgroup"> Show the groups </a>  -->
