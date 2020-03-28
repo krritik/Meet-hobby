@@ -31,8 +31,10 @@
         <p>
           {{ hp.PostDescription }}
         </p> <br>
+        <button type="button" class="btn" onclick="window.location.href ='/likes/{{hp.PostId}}';" >{{ hp.Likes }} Likes</button>
         <button type="button" class="btn" onclick="window.location.href ='/post_comments/{{hp.PostId}}';" >Show Comments</button>
         <button type="button" class="btn" onclick="window.location.href ='/new_comment/{{hp.PostId}}';">Add Comments</button>
+        
         <!-- <p>
             <a href ="/post_comments/{{hp.PostId}}"> Show Comments </a>
         </p> <br>

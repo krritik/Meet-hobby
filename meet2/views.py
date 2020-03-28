@@ -52,17 +52,16 @@ def login_request(request):
 
             if user is not None:
                 login(request, user)
-                messages.info(request, "You are now logged in as {username}")
+                messages.error(request, "You are now logged in as {username}")
                 return redirect('index')
             elif user.is_superuser is True:
-                 messages.error(request, "This is not for admin login")  
+                messages.error(request, "This is not for admin login")  
             else:
                 messages.error(request, "Invaild username or password")
         else:
             messages.error(request, "Invalid username or password")
     form = AuthenticationForm()
-    return render(request, "login.html", context={"form":form}) 
-
+    return render(request, "login.html", context={"form":form})
 
 def logout_request(request):
     user = request.user
@@ -359,5 +358,77 @@ def mod_group_mem_del(request,gid,uid):
     else:
         messages.warning(request, 'You are not logged in. Please login')
         return redirect('home')
-    
-    
+
+def like_post(request, pid):
+    user = request.user
+    if user.username and user.is_superuser is False:
+        cur_group = HasPosts.objects.get(PostId = pid)
+        gid = cur_group.GroupId.GroupId
+        cur_post = Post.objects.get(PostId = pid)
+        cur_post.Likes = cur_post.Likes+1
+        cur_post.save()
+        return redirect('show_posts', gid)
+    else:
+        messages.warning(request, 'You are not logged in. Please login')
+        return redirect('home')    
+
+def admin_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')  
+
+            user = authenticate(username=username, password=password)
+
+            if user is None:
+                messages.error(request, "Invalid username or password")
+            elif user.is_superuser is not True:
+                messages.error(request, "This is for admin login")
+            else:
+                login(request, user)
+                messages.error(request, "You are now logged in as {username}")
+                return redirect('admin_show_groups')    
+        else:
+            messages.error(request, "Invalid username or password")
+    form = AuthenticationForm()
+    return render(request, "admin_login.html", context={"form":form})    
+
+def admin_show_groups(request): 
+    user = request.user
+    if user.username and user.is_superuser is True:
+        all_groups = Group.objects.all()
+        return render(request, "admin_show_group.html", {'all_groups':all_groups})    
+    else:
+        messages.warning(request, 'Error in admin login')
+        return redirect('home')
+
+def admin_show_mems(request, gid):
+    user = request.user
+    if user.username and user.is_superuser is True:
+        GM = GroupMembers.objects.filter(GroupId = gid)
+        members = []
+
+        for mems in GM:
+            temp = []
+            temp.append(mems.UserId)
+            temp.append(gid)
+            temp.append(mems.Moderator)
+            members.append(temp)
+
+        return render(request, "admin_show_mems.html", {'members':members}) 
+    else:
+        messages.warning(request, 'Error in admin login')
+        return redirect('home')  
+
+def admin_group_moderator(request, gid, uid, boolvalue):
+    user = request.user
+    if user.username and user.is_superuser is True:
+        GM = GroupMembers.objects.get(GroupId=gid, UserId= uid)
+        GM.Moderator = boolvalue
+        GM.save()
+        return redirect('admin_show_mems', gid)
+    else:
+        messages.warning(request, 'Error in admin login')
+        return redirect('home')              

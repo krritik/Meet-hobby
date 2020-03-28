@@ -22,7 +22,7 @@ def update_profile_signal(sender, instance, created, **kwargs):
 
 class PhoneNumber(models.Model):
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
-    PhoneNumber = models.CharField(max_length=60)
+    PhoneNumber = models.CharField(max_length=17)
 
     def __str__(self):
         return self.PhoneNumber
@@ -101,3 +101,8 @@ class GroupMembers(models.Model):
     Moderator = models.BooleanField(default=False)
     NoofPosts = models.PositiveIntegerField(default=0)
     NoofEvents = models.PositiveIntegerField(default=0)
+
+# class UserPostLikes(models.Model):
+#     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
+#     PostId = models.ForeignKey('Post',on_delete=models.CASCADE)
+#     IsTrue = models.BooleanField(default=False)

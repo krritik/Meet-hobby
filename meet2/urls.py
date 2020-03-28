@@ -22,5 +22,9 @@ urlpatterns = [
     path('join_event/<int:id>',views.join_event,name='join_event'),
     path('mod/<int:id>',views.mod_group_mem_all,name='mod_group_mem_all'),
     path('mod_group_mem_del/<int:gid>/<int:uid>',views.mod_group_mem_del,name='mod_group_mem_del'),
-
+    path('likes/<int:pid>/',views.like_post,name='like_post'),
+    path('admin-login/', views.admin_login, name='admin_login'),
+    path('admin-show-groups/', views.admin_show_groups, name='admin_show_groups'),
+    path('admin-show-mems/<int:gid>/', views.admin_show_mems, name='admin_show_mems'),
+    path('admin-group-moderator/<int:gid>/<int:uid>/<int:boolvalue>/', views.admin_group_moderator, name='admin_group_moderator'),
 ]
