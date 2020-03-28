@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
