@@ -8,12 +8,6 @@
       <a class="navbar-brand" href ="/showgroup"> My groups </a> 
       <a class="navbar-brand" href ="/notification"> My events </a> 
       <a class="navbar-brand" href ="/show_group_event/{{gid}}">Group events</a>
-
-        {% for md in moderator %}
-            {% if md %}
-                <a class="navbar-brand" href ="/mod/{{gid}}">Members</a>
-            {% endif %}
-        {% endfor %} 
     </div>
   </div>
 </nav>
