@@ -20,12 +20,19 @@ p{
 </style>
 {% if  1 %}
     Thanks for choosing us!
-    {% for gp in notifi %}
+    {% for events in notifi %}
         <h3>
-              {{ gp.EventName}}
+              {{ events.0.EventName}}
         </h3>
         <p>       
-              {{ gp.EventDescription }}
+              {{ events.0.EventDescription }}
+        </p>
+
+        <p> 
+              Entry Time : {{ events.1 }}
+        </p>
+        <p>
+              Exit Time : {{ events.1 }}
         </p>
         <br>
         <hr>

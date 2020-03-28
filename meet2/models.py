@@ -91,8 +91,8 @@ class HasPosts(models.Model):
 class UserInterestedEvents(models.Model):
     EventId = models.ForeignKey('Events',on_delete=models.CASCADE)
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
-    EntryTime = models.DateTimeField(blank=True, null=True)
-    ExitTime = models.DateTimeField(blank=True, null=True)
+    EntryTime = models.TimeField(blank=True, null=True)
+    ExitTime = models.TimeField(blank=True, null=True)
     Organiser = models.CharField(max_length=60)
 
 class GroupMembers(models.Model):
@@ -101,5 +101,3 @@ class GroupMembers(models.Model):
     Moderator = models.BooleanField(default=False)
     NoofPosts = models.PositiveIntegerField(default=0)
     NoofEvents = models.PositiveIntegerField(default=0)
-
-

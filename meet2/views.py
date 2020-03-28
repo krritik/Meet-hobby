@@ -283,6 +283,7 @@ def join_event(request, id):
     if user.username and user.is_superuser is False:
         if request.method == "POST":
             form = UserInterestedEventsForm(request.POST)
+            
             if form.is_valid():
                 jevent = form.save(commit = False)
                 jevent.UserId = user
@@ -303,11 +304,15 @@ def show_all_events(request): #notification
     user = request.user
     if user.username and user.is_superuser is False:
         UIE = UserInterestedEvents.objects.filter(UserId = user)
-        # print(UIE[0].EventId)
+        
         notifi = []
         for x in UIE:
-            notifi.append(x.EventId)
-        #print(notifi)
+            temp = []
+            temp.append(x.EventId)
+            temp.append(x.EntryTime)
+            temp.append(x.EntryTime)
+            notifi.append(temp)
+            print(notifi)
         return render(request, 'show_all_event.html',{'notifi':notifi})
     else:
         messages.warning(request, 'You are not logged in. Please login')

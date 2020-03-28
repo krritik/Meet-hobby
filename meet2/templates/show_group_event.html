@@ -15,28 +15,40 @@
   background-color: silver; 
 }
 </style>
-Joined Events
-{% if  1 %}
+<h2> Joined Events </h2>
+
     {% for hp in joined %}
         <hr>
-        <p>
+        <h3>
                 {{ hp.EventName }}
+        </h3> <br>
+        <p>
+              Place : {{hp.EventPlace}}
         </p> <br>
+        <p>
+              Date  : {{hp.DateTime}}
+        </p>
         <hr>
     {% endfor %}
-{% endif %}
+
 <hr><hr><hr>
-Not Joined Events
-{% if  1 %}
+<h2> Not Joined Events </h2>
+
     {% for hp in not_joined %}
         <hr>
-        <h3>
+        <h4>
             {{ hp.EventName }}
-        </h3> 
+        </h4> <br>
+        <p>
+              Place : {{hp.EventPlace}}
+        </p> <br>
+        <p>
+              Date : {{hp.DateTime.date}}
+        </p>
         <p>
             <button type="button" class="btn" onclick="window.location.href ='/join_event/{{hp.EventId}}';">Join this event</button>
         </p>
         <hr>
     {% endfor %}
-{% endif %}
+
 {% endblock %}
