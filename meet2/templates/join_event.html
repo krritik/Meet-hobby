@@ -9,7 +9,7 @@
 </nav>
 <h2>Join Event</h2>
     <form method="POST" class="post-form">{% csrf_token %}
-        {{ join_event_form.as_p }}
+        {{ join_event_form.as_table }}
         <button type="submit" class="btn">Save</button>
 	</form>
 {% endblock %}

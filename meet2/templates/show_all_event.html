@@ -19,7 +19,7 @@ p{
 }
 </style>
 {% if  1 %}
-    Thanks for choosing us!
+    <h3>Thanks for choosing us! </h3>
     {% for gp in notifi %}
         <h3>
               {{ gp.EventName}}
@@ -27,9 +27,10 @@ p{
         <p>       
               {{ gp.EventDescription }}
         </p>
-        <br>
         <hr>
-        
+        <!-- <p>
+            {{ gp.GroupId }}
+    </p> -->
         
 
     {% endfor %}

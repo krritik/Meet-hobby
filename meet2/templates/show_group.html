@@ -1,56 +1,33 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-  h2 {
-    background-color: black;
-    color: grey;
-  }
-  p {
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/profile">{{user.username}}</a>
+    </div>
+  </div>
+</nav>
+ <style>
+  .comment {
     font-size: 18px;
     background-color: silver;
     color:black;
   }
   </style>
-</head>
-<body>
-<div class="w3-panel w3-blue">
-  <h1 class="w3-text-orange" style="text-shadow:1px 1px 0 #444" align="center">
-  <b align>Meet@Hobby</b></h1>
-</div>
-
- 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/profile">Home</a>
-    </div>
-  </div>
-</nav>
-
 {% if  user_groups %}
     {% for gp in user_groups %}
-        <h2>
-          <a href="/group_posts/{{gp.GroupId}}" >  {{ gp.GroupName }} </a>
-        </h2>
-        <p>
-          {{ gp.GroupDescription }}
-        </p>
-        <br>
-        <!-- <p>
-            {{ gp.GroupId }}
-    </p> -->
+        <div class="comment">
+        
+          <h2>
+            <a href="/group_posts/{{gp.GroupId}}" >  {{ gp.GroupName }} </a>
+          </h2>
+            {{ gp.GroupDescription }}
+          
+        </div>
+      
         
 
     {% endfor %}
 {% endif %}
 
-</body>
-</html>
+{% endblock %}

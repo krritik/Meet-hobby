@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block content %}
 <nav class="navbar navbar-inverse">
@@ -7,9 +8,13 @@
     </div>
   </div>
 </nav>
-<h2>New comment</h2>
+<div class="w3-panel w3-blue">
+      <h2 class="w3-text-orange" style="text-shadow:1px 1px 0 #444">
+      <b>Comment</b></h1>
+</div>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ new_comment_form.as_p }}
-        <button type="submit" class="btn">comment</button>
+        <br>
+        <button type="submit" class="btn" align="middle">Save Comment</button>
 </form>
 {% endblock %}
