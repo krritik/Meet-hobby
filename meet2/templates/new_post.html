@@ -4,14 +4,20 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+      <a class="navbar-brand" href="/group_posts/{{gid}}">Group Home</a>
       <a class="navbar-brand" href="/profile">{{user.username}}</a>
+      <a class="navbar-brand" href ="/showgroup"> My groups </a> 
+      <a class="navbar-brand" href ="/notification"> My events </a>
+      <a class="navbar-brand" href="/logout">Logout</a> 
     </div>
   </div>
 </nav>
+<div style="background-color: azure;">
 <h2>New post</h2>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ new_post_form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
 </form>
+</div>
 
 {% endblock %}

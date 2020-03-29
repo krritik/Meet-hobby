@@ -15,14 +15,22 @@
   p {
     font-size: 18px;
   }
+  .members{
+    background-color: lightblue;
+  }
+  .username{
+    font-weight: bold;
+    font-size: 22px;
+  }
 </style>
 {% if  group_mem %}
     {% for hp in group_mem %}
-        
+        <div class ="members">
         <hr>
-        <p>
+        <div class="username">
           {{ hp.username }}
-        </p> <br>
+        </div> 
+        <br>
             <!-- <form method="post" action="/mod_group_mem_del/{{gid}}/{{hp.id}}"> 
                 {% csrf_token %}
                 <br>
@@ -30,6 +38,7 @@
             </form> -->
             <a href="/mod_group_mem_del/{{gid}}/{{hp.id}}" >  Remove this person </a>
         <hr>
+        </div>
     {% endfor %}
 {% else %}
         <hr>

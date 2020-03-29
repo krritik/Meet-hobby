@@ -1,47 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %} 
-<div class="w3-panel w3-blue">
-  <h1 class="w3-text-orange" style="text-shadow:0.5px 0.5px 0 #100">
-  <b>Welcome {{user.username}}</b></h1>
-</div>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/logout">Logout</a>
       <a class="navbar-brand" href="/showgroup">My Groups</a>
-      <a class="navbar-brand" href="/newgroup">Add Group</a>
       <a class="navbar-brand" href="/notification">Notifications</a>
+      <a class="navbar-brand" href="/newgroup">Add Group</a>
+      <a class="navbar-brand" href="/logout">Logout</a>
     </div>
   </div>
 </nav>
-<div> 
+<style>
+  .join{
+    background-color: azure;
+  }
+</style>
+<div class="join"> 
     <div class="w3-panel w3-blue">
-      <h1 class="w3-text-orange" style="text-shadow:1px 1px 0 #444">
+      <h2 class="w3-text-orange" style="text-shadow:1px 1px 0 #444">
       <b>About</b></h1>
     </div>
     <div class="w3-panel w3-blue">
       <h3 class="w3-text-orange" >
-      <b>Email: {{user.email}}</b></h3>
+      <div style="font-weight: bold;">Email Id</div> 
+      {{user.email}}
+      </h3>
     </div>
 
     <div class="w3-panel w3-blue">
       <h3 class="w3-text-orange">
-      <b>Room Number: {{user.profile.AddressRoomNo}}</b></h3>
+        <div style="font-weight: bold;">Room Number</div> 
+        {{user.profile.AddressRoomNo}}
+      </h3>
     </div>
-
 
     <div class="w3-panel w3-blue">
       <h3 class="w3-text-orange" >
-      <b>Hall: {{user.profile.AddressHall}}</b></h3>
+        <div style="font-weight: bold;">Hall Of Residence</div> 
+        {{user.profile.AddressHall}}
+      </h3>
     </div>
 
-    {% if phone_nos %}
-      <div class="w3-panel w3-blue">
-        <h3 class="w3-text-orange" >
-        <b>Phone: {{phone_nos}}</b></h3>
-      </div>
-    {% endif %}
+    <div class="w3-panel w3-blue">
+      <h3 class="w3-text-orange" >
+        <div style="font-weight: bold;">Phone Number</div> 
+        {{phone_nos.0}} <br>
+        {{phone_nos.1}} 
+      </h3>
+    </div>
 
 </div>
 {% endblock %}
+
+
