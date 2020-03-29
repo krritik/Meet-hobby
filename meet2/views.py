@@ -19,15 +19,29 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         profile_form = ProfileForm(request.POST)
+        phone_form = PhoneForm(request.POST)
 
-        if form.is_valid() and profile_form.is_valid():
+        if form.is_valid() and profile_form.is_valid() and phone_form.is_valid():
             user = form.save()
             user.refresh_from_db()
 
             user.profile.AddressRoomNo = profile_form.cleaned_data.get('AddressRoomNo')
             user.profile.AddressHall = profile_form.cleaned_data.get('AddressHall')
             user.save()
-    
+
+            phone1 = PhoneNumber()
+            phone1.UserId = user
+            phone1.PhoneNumber = phone_form.cleaned_data.get('PhoneNumber1')
+            phone1.save()
+
+            check_phone = phone_form.cleaned_data.get('PhoneNumber2')
+
+            if check_phone is not None:
+                phone2= PhoneNumber()
+                phone2.UserId = user
+                phone2.PhoneNumber = check_phone
+                phone2.save()
+
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
@@ -38,7 +52,8 @@ def signup(request):
     else:
         form = SignUpForm()
         profile_form = ProfileForm()
-    return render(request, 'signup.html', {'form':form, 'profile_form':profile_form})        
+        phone_form = PhoneForm()
+    return render(request, 'signup.html', {'form':form, 'profile_form':profile_form, 'phone_form':phone_form})        
 
 def login_request(request):
     if request.method == 'POST':
@@ -75,7 +90,13 @@ def logout_request(request):
 def index(request):
     user = request.user
     if user.username and user.is_superuser is False:
-        return render(request, 'index.html')
+        PN = PhoneNumber.objects.filter(UserId=user)
+        phone_nos = []
+
+        for phone in PN:
+            phone_nos.append(phone.PhoneNumber)
+        
+        return render(request, 'index.html', {'phone_nos':phone_nos})
     else:
         messages.warning(request, 'You are not logged in. Please login') 
         return redirect('home')  
@@ -145,6 +166,7 @@ def new_post(request, id):
         else:
             if request.method =="POST":
                 form = PostForm(request.POST)
+                
                 if form.is_valid():
                     post = form.save(commit = False)
                     post.UserId = request.user
@@ -175,16 +197,17 @@ def show_posts(request, id):
         else:
             HP = HasPosts.objects.filter(GroupId = id)
             all_posts = Post.objects.all()
+            
             has_post = []
             for x in all_posts:
                 for y in HP:
                     if x.PostId == y.PostId.PostId :
                         has_post.append(x)
+            
             moderator = []
-            for z in GM:   
-                print('XXX')         
+            for z in GM:          
                 moderator.append(z.Moderator)
-            print(moderator)    
+              
             return render(request, 'group_posts.html',{'hps':has_post,'gid':id,'moderator':moderator})
     else:
         messages.warning(request, 'You are not logged in. Please login')
@@ -195,6 +218,7 @@ def new_comment(request,id):
     if user.username and user.is_superuser is False:
         if request.method == "POST":
             form = CommentForm(request.POST)
+            
             if form.is_valid():
                 comments = form.save(commit = False)
                 comments.UserId = request.user
@@ -323,6 +347,7 @@ def mod_group_mem_all(request,id):
     if user.username and user.is_superuser is False:
         group = Group.objects.get(GroupId = id)
         curr_user = GroupMembers.objects.get(UserId = user , GroupId = id)
+        
         if not curr_user.Moderator :
             return redirect('home')
         
@@ -361,6 +386,7 @@ def mod_group_mem_del(request,gid,uid):
 
 def like_post(request, pid):
     user = request.user
+    
     if user.username and user.is_superuser is False:
         cur_group = HasPosts.objects.get(PostId = pid)
         gid = cur_group.GroupId.GroupId

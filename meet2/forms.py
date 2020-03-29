@@ -5,6 +5,7 @@ from .models import Post,Comments,Events,UserInterestedEvents
 from django.contrib.admin import widgets
 from django.contrib.admin.widgets import AdminTimeWidget
 
+
 class SignUpForm(UserCreationForm):
     username = forms.CharField(max_length=60)
     email = forms.EmailField(max_length=150)
@@ -44,8 +45,6 @@ class UserInterestedEventsForm(forms.ModelForm):
         model = UserInterestedEvents
         fields = ('EntryTime','ExitTime',)
 
-# class PhoneForm(forms.Form):        
-#     PhoneNumber1 = forms.RegexField(regex=r'^\+?1?\d{9,15}$', 
-#                                 error_message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
-#     PhoneNumber2 = forms.RegexField(required= False, regex=r'^\+?1?\d{9,15}$', 
-#                                 error_message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))                            
+class PhoneForm(forms.Form):        
+    PhoneNumber1 = forms.RegexField(regex=r'^[6-9]\d{9}$', help_text='[Phone number be 10 digit starting with 6,7,8 or 9]')
+    PhoneNumber2 = forms.RegexField(required=False, regex=r'^[6-9]\d{9}$', help_text='(Optional)  [Phone number be 10 digit starting with 6,7,8 or 9]')                          

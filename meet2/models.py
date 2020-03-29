@@ -22,7 +22,7 @@ def update_profile_signal(sender, instance, created, **kwargs):
 
 class PhoneNumber(models.Model):
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
-    PhoneNumber = models.CharField(max_length=17)
+    PhoneNumber = models.CharField(max_length=12)
 
     def __str__(self):
         return self.PhoneNumber

@@ -22,18 +22,26 @@
     </div>
     <div class="w3-panel w3-blue">
       <h3 class="w3-text-orange" >
-      <b>Email: {{user.email}}</b></h1>
+      <b>Email: {{user.email}}</b></h3>
     </div>
 
     <div class="w3-panel w3-blue">
       <h3 class="w3-text-orange">
-      <b>Room Number: {{user.profile.AddressRoomNo}}</b></h1>
+      <b>Room Number: {{user.profile.AddressRoomNo}}</b></h3>
     </div>
+
 
     <div class="w3-panel w3-blue">
       <h3 class="w3-text-orange" >
-      <b>Hall: {{user.profile.AddressHall}}</b></h1>
+      <b>Hall: {{user.profile.AddressHall}}</b></h3>
     </div>
+
+    {% if phone_nos %}
+      <div class="w3-panel w3-blue">
+        <h3 class="w3-text-orange" >
+        <b>Phone: {{phone_nos}}</b></h3>
+      </div>
+    {% endif %}
 
 </div>
 {% endblock %}
