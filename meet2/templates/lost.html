@@ -1,3 +1,5 @@
+{% include 'message.html' %}
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -42,6 +44,17 @@
 <div class="footer">
     <p></p>
   </div>
+
+{% if messages %}
+  <script>
+      {% for message in messages %}
+          $(document).ready(function () {
+              $('.toast').toast('show');
+          });
+      {% endfor %}
+  </script>
+{% endif %}
+
 
 </body>
 </html>

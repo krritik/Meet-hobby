@@ -176,6 +176,11 @@ def new_post(request, id):
                     new_post_rel.GroupId = Group.objects.get(GroupId = id)
                     new_post_rel.PostId = Post.objects.get(PostId = pid)
                     new_post_rel.save()
+
+                    mem = GroupMembers.objects.filter(UserId = user, GroupId = id).first()
+                    mem.NoofPosts = mem.NoofPosts+1
+                    mem.save()
+
                     return redirect(show_posts,id)
                 else:
                     messages.error(request, "Invalid Form Details")
@@ -258,6 +263,11 @@ def add_event(request,id):
                 new_hasevents_rel.GroupId = Group.objects.get(GroupId = id)  #//id
                 new_hasevents_rel.EventId = Events.objects.get(EventId = eid)
                 new_hasevents_rel.save()
+
+                mem = GroupMembers.objects.filter(UserId = user, GroupId = id).first()
+                mem.NoofEvents = mem.NoofEvents+1
+                mem.save()
+
                 return redirect(show_group_events,id)
             else :
                 messages.error(request, "Invalid Form Details")
@@ -314,7 +324,7 @@ def join_event(request, id):
                 jevent.save()
                 return redirect(show_all_events)
             else:
-                messages.error(request, "Invalid Form Details")      
+                messages.error(request, "Time should be in the format of HH:MM")      
         else:
             form = UserInterestedEventsForm()
         return render(request,'join_event.html',{'join_event_form':UserInterestedEventsForm})
