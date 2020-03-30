@@ -28,6 +28,13 @@ img {
   right: 0px;
   margin-bottom: 0px;
 }
+
+.notification {
+  position: absolute;
+  top : 5rem;
+  right : 1rem;
+}
+
 h1 {
   background-color: #51C1F2;
   padding: 20px;
@@ -55,13 +62,15 @@ h1 {
 </div>
 
 {% if messages %}
+  {% for message in messages %}
   <script>
-      {% for message in messages %}
+      
           $(document).ready(function () {
               $('.toast').toast('show');
           });
-      {% endfor %}
+      
   </script>
+  {% endfor %}
 {% endif %}
 
 </body>

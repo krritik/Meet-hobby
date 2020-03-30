@@ -29,6 +29,11 @@
   right: 0px;
   margin-bottom: 0px;
 }
+.notification {
+  position: absolute;
+  top : 5rem;
+  right : 1rem;
+}
 
 
 </style>
@@ -83,13 +88,14 @@
 </div>
 
 {% if messages %}
+  {% for message in messages %}
   <script>
-      {% for message in messages %}
+      
           $(document).ready(function () {
               $('.toast').toast('show');
           });
-      {% endfor %}
   </script>
+  {% endfor %}
 {% endif %}
 
 </body>
