@@ -256,19 +256,24 @@ def add_event(request,id):
         if request.method == "POST":
             form = EventForm(request.POST)
             if form.is_valid():
-                events = form.save(commit = False)
-                events.save()
-                eid = events.EventId
-                new_hasevents_rel = HasEvents()
-                new_hasevents_rel.GroupId = Group.objects.get(GroupId = id)  #//id
-                new_hasevents_rel.EventId = Events.objects.get(EventId = eid)
-                new_hasevents_rel.save()
+                date = form.cleaned_data.get('DateTime')
+                
+                if date < date.today():
+                    messages.error(request, "Date cannot be a past dates")
+                else:
+                    events = form.save(commit = False)
+                    events.save()
+                    eid = events.EventId
+                    new_hasevents_rel = HasEvents()
+                    new_hasevents_rel.GroupId = Group.objects.get(GroupId = id)  #//id
+                    new_hasevents_rel.EventId = Events.objects.get(EventId = eid)
+                    new_hasevents_rel.save()
 
-                mem = GroupMembers.objects.filter(UserId = user, GroupId = id).first()
-                mem.NoofEvents = mem.NoofEvents+1
-                mem.save()
+                    mem = GroupMembers.objects.filter(UserId = user, GroupId = id).first()
+                    mem.NoofEvents = mem.NoofEvents+1
+                    mem.save()
 
-                return redirect(show_group_events,id)
+                    return redirect(show_group_events,id)
             else :
                 messages.error(request, "Invalid Form Details")
                 return redirect('home')    
@@ -318,6 +323,9 @@ def join_event(request, id):
             form = UserInterestedEventsForm(request.POST)
             
             if form.is_valid():
+                #entrytime = form.cleaned_data.get('EntryTime')
+                #exittime = form.cleaned_data.get('EntryTime')
+
                 jevent = form.save(commit = False)
                 jevent.UserId = user
                 jevent.EventId = Events.objects.get(EventId = id)
