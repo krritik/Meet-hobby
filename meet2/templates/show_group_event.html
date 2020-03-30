@@ -19,41 +19,56 @@
 }
 </style>
 <h2 style="font-weight: bold;"> Joined Events </h2>
-  
-    {% for hp in joined %}
-    <div style="background-color: lightblue;">
-        <hr>
-        <h3>
-                {{ hp.EventName }}
-        </h3> 
-        <p>
-              Place : {{hp.EventPlace}}
-        </p> 
-        <p>
-              Date  : {{hp.DateTime}}
-        </p>
-        <hr>
-      </div>
-    {% endfor %}
+
+    {% if joined %}
+      {% for hp in joined %}
+      <div style="background-color: lightblue;">
+          <hr>
+          <h3>
+                  {{ hp.EventName }}
+          </h3> 
+          <p>
+                Place : {{hp.EventPlace}}
+          </p> 
+          <p>
+                Date  : {{hp.DateTime}}
+          </p>
+          <hr>
+        </div>
+      {% endfor %}
+    {% else %}
+      <hr>
+      <p style="font-weight: bold;">
+          There are no events
+      </p>  
+    {% endif %}
+
 <h2 style="font-weight: bold;"> Not Joined Events </h2>
 
-    {% for hp in not_joined %}
-    <div style="background-color: lightblue;">
-        <hr>
-        <h4>
-            {{ hp.EventName }}
-        </h4> 
-        <p>
-              Place : {{hp.EventPlace}}
-        </p> 
-        <p>
-              Date : {{hp.DateTime.date}}
-        </p>
-        <p>
-            <button type="button" class="btn" onclick="window.location.href ='/join_event/{{hp.EventId}}';">Join this event</button>
-        </p>
-        <hr>
-      </div>
-    {% endfor %}
+    {% if not_joined %}
+      {% for hp in not_joined %}
+      <div style="background-color: lightblue;">
+          <hr>
+          <h4>
+              {{ hp.EventName }}
+          </h4> 
+          <p>
+                Place : {{hp.EventPlace}}
+          </p> 
+          <p>
+                Date : {{hp.DateTime.date}}
+          </p>
+          <p>
+              <button type="button" class="btn" onclick="window.location.href ='/join_event/{{hp.EventId}}';">Join this event</button>
+          </p>
+          <hr>
+        </div>
+      {% endfor %}
+    {% else %}
+      <hr>
+      <p style="font-weight: bold;">
+          There are no events
+      </p>  
+    {% endif %}
 
 {% endblock %}

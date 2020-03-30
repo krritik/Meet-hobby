@@ -22,7 +22,7 @@ p{
     </div>
   </div>
 </nav>
-{% if  1 %}
+{% if  hcs %}
     {% for hc in hcs %}
     <div class="join">
         <p >
@@ -33,5 +33,10 @@ p{
         </h4> 
     </div>
     {% endfor %}
+{% else %}
+    <hr>
+    <p style="font-weight: bold;">
+        There are no comments
+    </p>    
 {% endif %}
 {% endblock %}

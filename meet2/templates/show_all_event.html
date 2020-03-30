@@ -21,14 +21,15 @@ p{
   background-color: lightblue;
 }
 </style>
-{% if  1 %}
-  <div class="join">
+
+<div class="join">
     <hr>
     <p>
-    Thanks for choosing us!
+      Thanks for choosing us!
     </p>
     <hr>
-  </div>
+</div>
+{% if  notifi %}  
     {% for events in notifi %}
     <div class="join">
       
@@ -45,9 +46,12 @@ p{
         <p>
               Exit Time : {{ events.2 }}
         </p>
-    </div>
-        
-
-    {% endfor %}
+    </div>    
+    {% endfor %}  
+{% else %}
+    <hr>
+    <p style="font-weight: bold;">
+        There are no current events
+    </p>      
 {% endif %}
 {% endblock %}

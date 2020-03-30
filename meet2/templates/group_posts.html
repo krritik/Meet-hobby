@@ -25,7 +25,7 @@
     background-color: lightblue;
   }
 </style>
-{% if  1 %}
+{% if  hps %}
     {% for hp in hps %}
       <div class="post">
         <hr>
@@ -38,5 +38,10 @@
       --><button type="button" class="btn" onclick="window.location.href ='/new_comment/{{hp.PostId}}';">Add Comments</button>
       </div>
     {% endfor %}
+{% else %}
+    <hr>
+    <p style="font-weight: bold;">
+        There is no post in the group
+    </p>    
 {% endif %}
 {% endblock %}
