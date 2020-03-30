@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post,Comments,Events,UserInterestedEvents
+from .models import *
 from django.contrib.admin import widgets
 from django.contrib.admin.widgets import AdminTimeWidget
 
@@ -36,6 +36,12 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Events
         fields = ('EventPlace','EventDescription','EventName','DateTime')
+
+class GroupForm(forms.ModelForm):
+
+    class Meta:
+        model = Group
+        fields = ('GroupName', 'GroupDescription')       
         
 class UserInterestedEventsForm(forms.ModelForm):
     EntryTime = forms.TimeField(widget=forms.TimeInput(format='%H:%M'))

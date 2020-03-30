@@ -492,4 +492,33 @@ def admin_group_moderator(request, gid, uid, boolvalue):
         return redirect('admin_show_mems', gid)
     else:
         messages.warning(request, 'Error in admin login')
-        return redirect('home')              
+        return redirect('home')    
+
+def create_group(request):
+    user = request.user
+    if user.username and user.is_superuser is True:
+        if request.method == "POST":
+            form = GroupForm(request.POST)
+            
+            if form.is_valid():
+                form.save()
+                return redirect(admin_show_groups)
+            else:
+                messages.error(request, "Invalid Form Details")    
+        else:
+            form = GroupForm()
+        return render(request,'create_group.html',{'form':form})
+    else:                   
+        messages.warning(request, 'Error in admin login')
+        return redirect('home') 
+
+def admin_group_mem_del(request,gid,uid):
+    user = request.user
+    if user.username and user.is_superuser is True:
+        group = Group.objects.get(GroupId = gid)
+        del_user = User.objects.get(id = uid)
+        GroupMembers.objects.get(GroupId = group , UserId = del_user).delete()
+        return redirect(admin_show_mems, gid) 
+    else:
+        messages.warning(request, 'Error in admin login')
+        return redirect('home')         
