@@ -1,3 +1,5 @@
+{% include 'message.html' %}
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -28,6 +30,12 @@
   margin-bottom: 0px;
 }
 
+.notification {
+  position: absolute;
+  top : 5rem;
+  right : 1rem;
+}
+
 
 </style>
 </head>
@@ -47,6 +55,15 @@
 <div class="footer">
   <p></p>
 </div>
+{% if messages %}
+  <script>
+      {% for message in messages %}
+          $(document).ready(function () {
+              $('.toast').toast('show');
+          });
+      {% endfor %}
+  </script>
+{% endif %}
 
 </body>
 </html>

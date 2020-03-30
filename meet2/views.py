@@ -67,7 +67,7 @@ def login_request(request):
 
             if user is not None:
                 login(request, user)
-                messages.error(request, "You are now logged in as {username}")
+                messages.info(request, "You are now logged in as %s" %(username))
                 return redirect('index')
             elif user.is_superuser is True:
                 messages.error(request, "This is not for admin login")  
@@ -390,9 +390,26 @@ def like_post(request, pid):
     if user.username and user.is_superuser is False:
         cur_group = HasPosts.objects.get(PostId = pid)
         gid = cur_group.GroupId.GroupId
+        
+        UPL = UserPostLikes.objects.filter(PostId=pid, UserId=user).first()
+
+        if UPL is None:
+            UPL = UserPostLikes()
+            UPL.PostId = Post.objects.get(PostId = pid)
+            UPL.UserId = user
+            UPL.IsTrue = 1
+            UPL.save()
+        else :
+            UPL.IsTrue = not UPL.IsTrue
+            UPL.save()    
+
         cur_post = Post.objects.get(PostId = pid)
-        cur_post.Likes = cur_post.Likes+1
+        if(UPL.IsTrue):
+            cur_post.Likes = cur_post.Likes+1
+        else:  
+            cur_post.Likes = cur_post.Likes-1  
         cur_post.save()
+        
         return redirect('show_posts', gid)
     else:
         messages.warning(request, 'You are not logged in. Please login')
@@ -414,7 +431,7 @@ def admin_login(request):
                 messages.error(request, "This is for admin login")
             else:
                 login(request, user)
-                messages.error(request, "You are now logged in as {username}")
+                messages.info(request, "You are now logged in as %s" %(username))
                 return redirect('admin_show_groups')    
         else:
             messages.error(request, "Invalid username or password")

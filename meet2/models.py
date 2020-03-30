@@ -24,8 +24,8 @@ class PhoneNumber(models.Model):
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
     PhoneNumber = models.CharField(max_length=12)
 
-    def __str__(self):
-        return self.PhoneNumber
+    class Meta:
+        unique_together = (("UserId", "PhoneNumber"),)     
 
 class Post(models.Model):
     PostId = models.AutoField(primary_key=True)
@@ -84,9 +84,15 @@ class HasEvents(models.Model):
     GroupId = models.ForeignKey('Group',on_delete=models.CASCADE)
     TotalParticipants = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        unique_together = (("GroupId", "EventId"),) 
+
 class HasPosts(models.Model):
     PostId = models.ForeignKey('Post',on_delete=models.CASCADE)
     GroupId = models.ForeignKey('Group',on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (("GroupId", "PostId"),) 
 
 class UserInterestedEvents(models.Model):
     EventId = models.ForeignKey('Events',on_delete=models.CASCADE)
@@ -95,6 +101,9 @@ class UserInterestedEvents(models.Model):
     ExitTime = models.TimeField(blank=True, null=True)
     Organiser = models.CharField(max_length=60)
 
+    class Meta:
+        unique_together = (("UserId", "EventId"),)    
+
 class GroupMembers(models.Model):
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
     GroupId = models.ForeignKey('Group',on_delete=models.CASCADE)
@@ -102,7 +111,13 @@ class GroupMembers(models.Model):
     NoofPosts = models.PositiveIntegerField(default=0)
     NoofEvents = models.PositiveIntegerField(default=0)
 
-# class UserPostLikes(models.Model):
-#     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
-#     PostId = models.ForeignKey('Post',on_delete=models.CASCADE)
-#     IsTrue = models.BooleanField(default=False)
+    class Meta:
+        unique_together = (("UserId", "GroupId"),)
+
+class UserPostLikes(models.Model):
+    UserId = models.ForeignKey(User,on_delete=models.CASCADE)
+    PostId = models.ForeignKey('Post',on_delete=models.CASCADE)
+    IsTrue = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (("UserId", "PostId"),)
