@@ -257,7 +257,6 @@ def add_event(request,id):
             form = EventForm(request.POST)
             if form.is_valid():
                 date = form.cleaned_data.get('DateTime')
-                
                 if date < date.today():
                     messages.error(request, "Date cannot be a past dates")
                 else:

@@ -66,7 +66,7 @@ class Group(models.Model):
 
 class Events(models.Model):
     EventId = models.AutoField(primary_key=True)
-    DateTime = models.DateTimeField(blank=True, null=True)
+    DateTime = models.DateField(blank=True, null=True)
     EventPlace = models.CharField(max_length=60)
     EventDescription = models.TextField()
     EventName = models.CharField(max_length=60)
