@@ -5,14 +5,16 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="/profile">{{user.username}}</a>
+      <a class="navbar-brand" href="/group_posts/{{gid}}">Group Home</a>
     </div>
   </div>
 </nav>
-
-<h2>New Event</h2>
+<div style="background-color: azure;">
+<h2 style="font-weight: bold;">New Event</h2>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ new_event_form.as_p }}
         <button type="submit" class="btn">Save</button>
 </form>
+</div>
 
 {% endblock %}

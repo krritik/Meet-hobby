@@ -7,9 +7,16 @@
     </div>
   </div>
 </nav>
+<style>
+  .join{
+    background-color: azure;
+  }
+</style>
+<div class="join">
 <h2>Join Event</h2>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ join_event_form.as_p }}
         <button type="submit" class="btn">Save</button>
-	</form>
+  </form>
+</div>
 {% endblock %}

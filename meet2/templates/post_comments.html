@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% block content %} 
 <style>
-h3{
+h4{
   color: grey;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-align: right; 
 }
 p{
-    background-color: silver;
     color: black;
     font-size: 18px;
+}
+.join{
+  background-color: lightblue;
 }
 </style>
 <nav class="navbar navbar-inverse">
@@ -22,13 +24,14 @@ p{
 </nav>
 {% if  1 %}
     {% for hc in hcs %}
+    <div class="join">
         <p >
                 {{ hc.Content }}
         </p> 
-        <h3 >
+        <h4 >
                 {{ hc.UserId.username }}
-        </h3> 
-
+        </h4> 
+    </div>
     {% endfor %}
 {% endif %}
 {% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.shortcuts import render_to_response
+# from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
@@ -181,7 +181,7 @@ def new_post(request, id):
                     messages.error(request, "Invalid Form Details")
             else:
                 form = PostForm()
-            return render(request,'new_post.html',{'new_post_form':PostForm})
+            return render(request,'new_post.html',{'new_post_form':PostForm,'gid':id})
     else:
         messages.warning(request, 'You are not logged in. Please login')
         return redirect('home')    
@@ -265,7 +265,7 @@ def add_event(request,id):
 
         else:
             form = EventForm()
-        return render(request,'new_event.html',{'new_event_form':EventForm})
+        return render(request,'new_event.html',{'new_event_form':EventForm,'gid':id})
     else:
         messages.warning(request, 'You are not logged in. Please login')
         return redirect('home')
@@ -333,7 +333,7 @@ def show_all_events(request): #notification
             temp = []
             temp.append(x.EventId)
             temp.append(x.EntryTime)
-            temp.append(x.EntryTime)
+            temp.append(x.ExitTime)
             notifi.append(temp)
             print(notifi)
         return render(request, 'show_all_event.html',{'notifi':notifi})

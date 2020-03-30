@@ -16,21 +16,22 @@
 </style>
 {% if  members %}
     {% for hp in members %}
-        
+      <div style="background-color: lightblue;">
         <hr>
         <p>
           {{ hp.0.username }}
-        </p> <br>
+        </p> 
             {% if hp.2 %}
             <a href="/admin-group-moderator/{{hp.1}}/{{hp.0.id}}/0" >  Remove Moderator </a>
             {% else %}
             <a href="/admin-group-moderator/{{hp.1}}/{{hp.0.id}}/1" >  Add Moderator </a>
             {% endif %}
         <hr>
+        </div>
     {% endfor %}
 {% else %}
         <hr>
-        <p>
+        <p style="font-weight: bold;">
             There is no member of the current group
         </p>
 {% endif %}

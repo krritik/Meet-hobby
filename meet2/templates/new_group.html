@@ -3,7 +3,10 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/profile">Home</a>
+        <a class="navbar-brand" href="/profile">{{user.username}}</a>
+        <a class="navbar-brand" href ="/showgroup"> My groups </a> 
+        <a class="navbar-brand" href ="/notification"> My events </a>
+        <a class="navbar-brand" href="/logout">Logout</a> 
     </div>
   </div>
 </nav>
@@ -18,7 +21,8 @@
 </style>
 {% if  new_groups %}
     {% for gp in new_groups %}
-    <p style="background-color:silver;">
+    <div style="background-color:lightblue;">
+        <hr>
         <h3>
              {{ gp.GroupName }}
         </h3>
@@ -28,11 +32,11 @@
         <p>
             <form method="post" action="{% url 'join_group' gp.GroupId %}"> 
                 {% csrf_token %}
-                <br>
                 <button class="btn" type="submit"> Join Group </button>
             </form>
         </p>
-    </p>
+        <hr>
+    </div>
     {% endfor %}
 {% endif %}
 {% endblock %}

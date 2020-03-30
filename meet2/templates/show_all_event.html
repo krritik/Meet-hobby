@@ -4,26 +4,37 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="/profile">{{user.username}}</a>
+      <a class="navbar-brand" href ="/showgroup"> My groups </a> 
+      <a class="navbar-brand" href="/logout">Logout</a> 
     </div>
   </div>
 </nav>
 <style >
-  h3{
+  h2{
   color: black;
-  background-color: silver; 
 }
 p{
-    background-color: silver;
     color: black;
     font-size: 18px;
 }
+.join{
+  background-color: lightblue;
+}
 </style>
 {% if  1 %}
+  <div class="join">
+    <hr>
+    <p>
     Thanks for choosing us!
+    </p>
+    <hr>
+  </div>
     {% for events in notifi %}
-        <h3>
+    <div class="join">
+      
+        <h2>
               {{ events.0.EventName}}
-        </h3>
+        </h2>
         <p>       
               {{ events.0.EventDescription }}
         </p>
@@ -32,11 +43,9 @@ p{
               Entry Time : {{ events.1 }}
         </p>
         <p>
-              Exit Time : {{ events.1 }}
+              Exit Time : {{ events.2 }}
         </p>
-        <br>
-        <hr>
-        
+    </div>
         
 
     {% endfor %}

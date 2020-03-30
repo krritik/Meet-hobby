@@ -5,43 +5,47 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/profile">{{user.username}}</a>
       <a class="navbar-brand" href="/new_event/{{gid}}">Add event</a>
+      <a class="navbar-brand" href="/group_posts/{{gid}}">Group Home</a>
+      
+      
+      
     </div>
   </div>
 </nav>
 
 <style>   
     h3{
-  color: black;
-  background-color: silver; 
+  color: black; 
 }
 </style>
-<h2> Joined Events </h2>
-
+<h2 style="font-weight: bold;"> Joined Events </h2>
+  
     {% for hp in joined %}
+    <div style="background-color: lightblue;">
         <hr>
         <h3>
                 {{ hp.EventName }}
-        </h3> <br>
+        </h3> 
         <p>
               Place : {{hp.EventPlace}}
-        </p> <br>
+        </p> 
         <p>
               Date  : {{hp.DateTime}}
         </p>
         <hr>
+      </div>
     {% endfor %}
-
-<hr><hr><hr>
-<h2> Not Joined Events </h2>
+<h2 style="font-weight: bold;"> Not Joined Events </h2>
 
     {% for hp in not_joined %}
+    <div style="background-color: lightblue;">
         <hr>
         <h4>
             {{ hp.EventName }}
-        </h4> <br>
+        </h4> 
         <p>
               Place : {{hp.EventPlace}}
-        </p> <br>
+        </p> 
         <p>
               Date : {{hp.DateTime.date}}
         </p>
@@ -49,6 +53,7 @@
             <button type="button" class="btn" onclick="window.location.href ='/join_event/{{hp.EventId}}';">Join this event</button>
         </p>
         <hr>
+      </div>
     {% endfor %}
 
 {% endblock %}
