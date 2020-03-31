@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 {% block content %} 
+<style>
+  h4{
+  color: grey;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-align: right; 
+}
+h3 {
+  text-align:center;
+}
+</style>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -25,6 +36,22 @@
     background-color: lightblue;
   }
 </style>
+<div>
+    
+      {% for n_post in no_of_posts %}
+          <h3>
+           Your Total Posts : {{ n_post }}
+          </h3>
+      {% endfor %}
+
+      {% for n_events in no_of_events %}
+          <h3>
+           Your Total Events : {{ n_events }}
+          </h3>
+      {% endfor %}
+</div>
+
+
 {% if  hps %}
     {% for hp in hps %}
       <div class="post">
@@ -36,7 +63,9 @@
         <button type="button" class="btn" onclick="window.location.href ='/likes/{{hp.PostId}}';" >{{ hp.Likes }} Likes</button><!--
       --><button type="button" class="btn" onclick="window.location.href ='/post_comments/{{hp.PostId}}';" >Show Comments</button><!--
       --><button type="button" class="btn" onclick="window.location.href ='/new_comment/{{hp.PostId}}';">Add Comments</button>
-      </div>
+          <h4>
+            {{ hp.PostTime }}
+          </h4>
     {% endfor %}
 {% else %}
     <hr>

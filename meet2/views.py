@@ -170,7 +170,8 @@ def new_post(request, id):
                 if form.is_valid():
                     post = form.save(commit = False)
                     post.UserId = request.user
-                    post.save()
+                    post.publish()
+                    
                     pid = post.PostId
                     new_post_rel = HasPosts()
                     new_post_rel.GroupId = Group.objects.get(GroupId = id)
@@ -195,7 +196,7 @@ def show_posts(request, id):
     user = request.user 
     if user.username and user.is_superuser is False:
         GM = GroupMembers.objects.filter(GroupId = id, UserId = user)
-        print(GM)
+        #print(GM)
         if GM is None:
             messages.error(request, "Not a member of group")
             return redirect('index')
@@ -210,10 +211,14 @@ def show_posts(request, id):
                         has_post.append(x)
             
             moderator = []
-            for z in GM:          
+            no_of_posts = []
+            no_of_events = []
+            for z in GM:    
+                no_of_events.append(z.NoofEvents)
+                no_of_posts.append(z.NoofPosts)      
                 moderator.append(z.Moderator)
               
-            return render(request, 'group_posts.html',{'hps':has_post,'gid':id,'moderator':moderator})
+            return render(request, 'group_posts.html',{'hps':has_post,'gid':id,'moderator':moderator, 'no_of_posts':no_of_posts, 'no_of_events':no_of_events})
     else:
         messages.warning(request, 'You are not logged in. Please login')
         return redirect('home')    
@@ -228,7 +233,7 @@ def new_comment(request,id):
                 comments = form.save(commit = False)
                 comments.UserId = request.user
                 comments.PostId = Post.objects.get(PostId = id)
-                comments.save()
+                comments.publish()
                 return redirect(show_comments,id)
             else:
                 messages.error(request, "Invalid Form Details")    
@@ -261,7 +266,7 @@ def add_event(request,id):
                     messages.error(request, "Date cannot be a past dates")
                 else:
                     events = form.save(commit = False)
-                    events.save()
+                    events.publish()
                     eid = events.EventId
                     new_hasevents_rel = HasEvents()
                     new_hasevents_rel.GroupId = Group.objects.get(GroupId = id)  #//id
@@ -500,7 +505,8 @@ def create_group(request):
             form = GroupForm(request.POST)
             
             if form.is_valid():
-                form.save()
+                group = form.save(commit = False)
+                group.publish()
                 return redirect(admin_show_groups)
             else:
                 messages.error(request, "Invalid Form Details")    
