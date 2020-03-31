@@ -70,6 +70,7 @@ class Events(models.Model):
     EventDescription = models.TextField()
     EventName = models.CharField(max_length=60)
     EventCreationTime = models.DateTimeField(default=timezone.now)
+    Organiser = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def publish(self):
         self.EventCreationTime = timezone.now()
@@ -98,7 +99,6 @@ class UserInterestedEvents(models.Model):
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
     EntryTime = models.TimeField(blank=True, null=True)
     ExitTime = models.TimeField(blank=True, null=True)
-    Organiser = models.CharField(max_length=60)
 
     class Meta:
         unique_together = (("UserId", "EventId"),)    

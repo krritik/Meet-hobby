@@ -266,6 +266,7 @@ def add_event(request,id):
                     messages.error(request, "Date cannot be a past dates")
                 else:
                     events = form.save(commit = False)
+                    events.Organiser = request.user
                     events.publish()
                     eid = events.EventId
                     new_hasevents_rel = HasEvents()
